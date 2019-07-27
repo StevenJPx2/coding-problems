@@ -141,26 +141,28 @@ EDIT:
 The above tree did not track 3+3, cause 3 wasn't the root. So that has to be done as well.
 """
 
-# PARTIALLY WORKING
+# SOLVED!!!
+# ADDED DEPTH AS A PARAMETER TO TRACK CHANGES
 
-def tree_method(n=4, steps=[1,2], root=0, history=[], debug=True):
+
+def tree_method(n=4, steps=[1,2], debug=True, history=[], depth=0):
     
-    total_sum = root
-    __history = list(history)
+    history = list(history)
 
     for number in steps:
-        total_sum += number
-        __history.append(number)
+        history.append(number)
+        total_sum = sum(history)
         if total_sum < n:
-            if debug: print(__history, "<")
-            tree_method(n, steps, total_sum, __history, debug)
+            if debug: print(history, "<", depth)
+            tree_method(n, steps, debug, history, depth+1)
         elif total_sum == n:
-            if debug: print(__history, "=")
-            else: print(__history)
-            history = []
+            if debug: print(history, "=", depth)
+            else: print(history)
         else:
-            if debug: print(__history, ">")
-            history = []
+            if debug: print(history, total_sum, ">", depth)
+        history = list(history)[:depth]
     
 if __name__ == "__main__":
-    tree_method()
+    tree_method(6, [1,3,5])
+    tree_method(6, [1,3,5], False)
+    # tree_method(debug=False)
