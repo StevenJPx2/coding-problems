@@ -130,6 +130,9 @@ This might be the most cost-effective and fruitful one so far.
 
 Let's see what I can do.
 
+
+I'll have to use recursion for this.
+Somehow I'll have to track the history of numbers
 """
 
 # Brute force method
@@ -151,22 +154,26 @@ def brute_steps(n=4, steps=[1, 2]):
 
     print(unique_steps)
 
-def smarter_steps(n=4, steps=set([1, 2])):
-    unique_steps = {}
-    sum = 0
-    for i in steps:
-        lis = []
-        while sum != n:
-            sum += i * n
-            lis.extend([f"{i}" for _ in range(n)])
-            if sum > n:
-                old_sum = sum
-                sum /= i
-                for _ in range(old_sum-sum):
-                    lis.remove(i)
 
-        unique_steps[lis] = sum
+# NOT WORKING
 
+def tree_method(number_selected=None, n=4, steps=[1,2], total_sum=0, history=[]):
+    if number_selected != None:
+        root = number_selected
+    elif number_selected == None:
+        root = min(steps)
 
+    total_sum = root
+    for number in steps:
+        total_sum += root
+        history.append(root)
+        if total_sum < n:
+            tree_method(number, n, steps, total_sum, history)
+        elif total_sum == n:
+            print(history)
+            return
+        else:
+            return
+    
 if __name__ == "__main__":
-    brute_steps()
+    tree_method()
