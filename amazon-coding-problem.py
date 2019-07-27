@@ -139,6 +139,37 @@ Somehow I'll have to track the history of numbers.
 EDIT:
 
 The above tree did not track 3+3, cause 3 wasn't the root. So that has to be done as well.
+
+
+EDIT 2:
+
+Reason why the depth parameter is so important is because the tree method works depth-first.
+Hence, when the iterator back-tracks, it appends the changes to the original history list in the wrong area.
+
+Let me explain it with an example.
+
+
+The list at depth 3 - [1,1,1], n = 4. 
+Since sum of [1,1,1] is 3, it goes further down.
+
+At depth 4: [1,1,1,1] == 4 (!!)
+
+Now, it returns that value and goes to depth 3.
+
+But the list is still - [1,1,1,1]
+
+At depth 3, it has to insert the value here:
+
+[1, 1, 1, 1]
+          ^
+
+But because of no depth tracking, it simply appends the value.
+
+i.e, [1, 1, 1, 1, 2] (desired output: [1, 1, 1, 2])
+
+This can be easily solved by simply slicing the list to the depth number:
+
+i.e, ([1, 1, 1, 1]).slice(depth) --> ([1, 1, 1]).append(next_number) --> [1, 1, 1, 2]
 """
 
 # SOLVED!!!
