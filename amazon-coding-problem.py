@@ -83,7 +83,53 @@ So, we don't want to do that.
 
 And we have to do this till 6. Let's try this in the brute_steps function.
 
-One way to optimise it is 
+One way to optimise it is by reducing the number of numbers it has to add by the end.
+
+So if there is a list of [2,3,4],
+and it has to add to 6, we do not need the iterator to add 6 numbers out of the gate
+cause we know that the minimum (2) only needs to be added three times to itself to get a 
+total of 6. And three numbers to be added is the maximum we'll see for this is list.
+
+So for this, we can put a variable min_to_succeed, where the N (6) is integer-divided by the smallest
+number in the list (2) and the list only has to work up to this number.
+
+
+This problem, however, just softens the blow of the exponential work the iterator has to otherwise do.
+
+Another way is to memoise. Since we are working our way towards adding more numbers,
+we can save the numbers that are added already.
+
+In that case, I feel that it acts like a tree of sorts.
+
+
+steps - [2, 3, 4]
+n - 6
+
+
+
+                            (2,2)
+             /                |            \\
+          (2,4)             (3,5)         (4,6)
+        /   |  \\         /   |  \\         ^ 
+     (2,6)(3,7)(4,8)   (2,7)(3,8)(4,9)  
+       ^    X    X       X    X    X   
+
+
+So, in this, smallest number is the root.
+In the tuple, (number_selected, total_sum) <-- is what it represents.
+
+Then, 
+if total_sum < n:
+    add_with_steps()
+elif total_sum == n:
+    mark_history(tuple)
+else:
+    cut_off()
+
+This might be the most cost-effective and fruitful one so far.
+
+Let's see what I can do.
+
 """
 
 # Brute force method
