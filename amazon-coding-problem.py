@@ -201,9 +201,9 @@ def tree_method_shortened(n=4, steps=[1,2], debug=True, history=[], depth=0):
     for number in steps:
         history.append(number)
         total_sum = sum(history)
-        if total_sum < n:
-            tree_method(n, steps, debug, history, depth+1)
-            print(history)
+        
+        if total_sum < n: tree_method(n, steps, debug, history, depth+1)
+        elif total_sum == n: print(history)
 
         history = list(history)[:depth]
 
