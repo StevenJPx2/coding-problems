@@ -132,47 +132,33 @@ Let's see what I can do.
 
 
 I'll have to use recursion for this.
-Somehow I'll have to track the history of numbers
+Somehow I'll have to track the history of numbers.
+
+
+
+EDIT:
+
+The above tree did not track 3+3, cause 3 wasn't the root. So that has to be done as well.
 """
 
-# Brute force method
-# trying by hardcoding as much as possible
+# PARTIALLY WORKING
 
-def brute_steps(n=4, steps=[1, 2]):
-    unique_steps = []
-    sum = 0
-
-    for i in range(1, n+1):
-        ls = []
-        sum = 0
-        for number in steps:
-            sum = number
-            for added in steps:
-                for iterator in range(i):
-                    sum += added
-
-
-    print(unique_steps)
-
-
-# NOT WORKING
-
-def tree_method(number_selected=None, n=4, steps=[1,2], total_sum=0, history=[]):
-    if number_selected != None:
-        root = number_selected
-    elif number_selected == None:
-        root = min(steps)
-
+def tree_method(n=4, steps=[1,2], root=0, history=[]):
+    
     total_sum = root
+    __history = list(history)
+
     for number in steps:
-        total_sum += root
-        history.append(root)
+        total_sum += number
+        __history.append(number)
         if total_sum < n:
-            tree_method(number, n, steps, total_sum, history)
+            tree_method(n, steps, total_sum, __history)
         elif total_sum == n:
-            print(history)
+            print(__history)
+            history = []
             return
         else:
+            history = []
             return
     
 if __name__ == "__main__":
