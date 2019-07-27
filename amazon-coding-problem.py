@@ -143,7 +143,7 @@ The above tree did not track 3+3, cause 3 wasn't the root. So that has to be don
 
 # PARTIALLY WORKING
 
-def tree_method(n=4, steps=[1,2], root=0, history=[]):
+def tree_method(n=4, steps=[1,2], root=0, history=[], debug=True):
     
     total_sum = root
     __history = list(history)
@@ -152,14 +152,15 @@ def tree_method(n=4, steps=[1,2], root=0, history=[]):
         total_sum += number
         __history.append(number)
         if total_sum < n:
-            tree_method(n, steps, total_sum, __history)
+            if debug: print(__history, "<")
+            tree_method(n, steps, total_sum, __history, debug)
         elif total_sum == n:
-            print(__history)
+            if debug: print(__history, "=")
+            else: print(__history)
             history = []
-            return
         else:
+            if debug: print(__history, ">")
             history = []
-            return
     
 if __name__ == "__main__":
     tree_method()
