@@ -66,7 +66,7 @@ def less_brute_xor(A, N):
         _cache = list(cache)
         for j in range(i, N):
             _cache[j+1] = _cache[j]^A[j]
-            even = sum(int(i) for i in bin(_cache[j+1])[2:])
+            even = bin(_cache[j+1]).count('1')   # sum(int(i) for i in bin(_cache[j+1])[2:])
             if all((j+1 >= max_even[0], even >= max_even[1], not even % 2)): max_even = (j+1, even)
     return str(max_even[0])
 
