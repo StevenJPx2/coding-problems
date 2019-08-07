@@ -61,7 +61,7 @@ def main():
 
 def less_brute_xor(A, N):
     max_even = (0,0)
-    cache = [0 for _ in range(N+1)]
+    cache = [0] * (N+1)
     for i in range(N):
         _cache = list(cache)
         for j in range(i, N):
